@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ProdutosService } from '../../shared/services/produtos.service';
 import { Produto } from '../../shared/interfaces/produto.interface';
+import { CardComponent } from './components/card/card.component';
+
+
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })

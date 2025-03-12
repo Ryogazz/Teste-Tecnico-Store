@@ -1,9 +1,3 @@
-<p>list works!</p>
-
-<ul>
-  @for (produto of produtos; track produto.id) {
-    <li>
-      {{ produto.nome }}
-    </li>
-  }
-</ul>
+@for (produto of produtos; track produto.id) {
+<app-card [produto]="produto"></app-card>
+}
