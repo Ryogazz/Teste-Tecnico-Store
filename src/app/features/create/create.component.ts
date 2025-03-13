@@ -54,7 +54,7 @@ export class CreateComponent {
         Validators.minLength(3)
       ]
     }),
-    destaque: new FormControl<boolean>(false, { 
+    destaque: new FormControl<boolean>(false, {
       nonNullable: true
     }),
     dataCriacao: new FormControl<Date>(new Date(), {
@@ -67,20 +67,20 @@ export class CreateComponent {
       console.error('Formulário inválido!');
       return;
     }
-  
+
     const produtoData = this.prepareProductData();
     if (!produtoData) {
       console.error('Dados do produto inválidos!');
       return;
     }
-  
+
     this.sendProductData(produtoData);
   }
-  
+
   private isFormInvalid(): boolean {
     return this.form.invalid;
   }
-  
+
   private prepareProductData(): PayloadProduct | null {
     const formValue = this.form.value;
   
@@ -90,20 +90,34 @@ export class CreateComponent {
       return null;
     }
   
+    let dataCriacao = formValue.dataCriacao;
+  
+    if (typeof dataCriacao === 'string') {
+      dataCriacao = new Date(dataCriacao);  
+    }
+  
+
+    if (!(dataCriacao instanceof Date) || isNaN(dataCriacao.getTime())) {
+      console.error('Data de criação inválida!');
+      return null;
+    }
+  
     return {
       nome: formValue.nome ?? '',
       descricao: formValue.descricao ?? '',
       preco: precoDecimal,
       categoria: formValue.categoria ?? '',
       destaque: formValue.destaque ?? false,
-      dataCriacao: formValue.dataCriacao?.toISOString() ?? new Date().toISOString(),
+      dataCriacao: dataCriacao.toISOString(),  
     };
   }
-  
+
+
+
   private convertPriceToDecimal(precoRawValue: number | null | undefined): number {
     return parseFloat((precoRawValue ?? '').toString().replace('R$', '').replace(',', '.').trim());
   }
-  
+
   private sendProductData(produtoData: PayloadProduct) {
     this.produtosService.post(produtoData).subscribe({
       next: (response) => {
@@ -114,5 +128,5 @@ export class CreateComponent {
       }
     });
   }
-  
+
 }
