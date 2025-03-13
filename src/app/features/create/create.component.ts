@@ -4,9 +4,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrencyPipe } from '@angular/common';
 import { ProdutosService } from '../../shared/services/produtos.service';
 import { PayloadProduct } from '../../shared/interfaces/payload-product.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -22,8 +24,10 @@ import { PayloadProduct } from '../../shared/interfaces/payload-product.interfac
   providers: [CurrencyPipe],
 })
 export class CreateComponent {
-  produtosService = inject(ProdutosService)
 
+  produtosService = inject(ProdutosService)
+  matSnackBar = inject(MatSnackBar)
+  router = inject(Router)
 
   form = new FormGroup({
     nome: new FormControl<string>('', {
@@ -63,6 +67,7 @@ export class CreateComponent {
   })
 
   onSubmit() {
+
     if (this.isFormInvalid()) {
       console.error('Formulário inválido!');
       return;
@@ -83,32 +88,32 @@ export class CreateComponent {
 
   private prepareProductData(): PayloadProduct | null {
     const formValue = this.form.value;
-  
+
     const precoDecimal = this.convertPriceToDecimal(formValue.preco);
     if (isNaN(precoDecimal)) {
       console.error('Preço inválido!');
       return null;
     }
-  
+
     let dataCriacao = formValue.dataCriacao;
-  
+
     if (typeof dataCriacao === 'string') {
-      dataCriacao = new Date(dataCriacao);  
+      dataCriacao = new Date(dataCriacao);
     }
-  
+
 
     if (!(dataCriacao instanceof Date) || isNaN(dataCriacao.getTime())) {
       console.error('Data de criação inválida!');
       return null;
     }
-  
+
     return {
       nome: formValue.nome ?? '',
       descricao: formValue.descricao ?? '',
       preco: precoDecimal,
       categoria: formValue.categoria ?? '',
       destaque: formValue.destaque ?? false,
-      dataCriacao: dataCriacao.toISOString(),  
+      dataCriacao: dataCriacao.toISOString(),
     };
   }
 
@@ -120,11 +125,13 @@ export class CreateComponent {
 
   private sendProductData(produtoData: PayloadProduct) {
     this.produtosService.post(produtoData).subscribe({
-      next: (response) => {
-        console.log('Produto criado com sucesso:', response);
+      next: () => {
+        this.matSnackBar.open('Produto criado com sucesso!', 'OK',)
+        this.router.navigateByUrl('/').catch((error) => console.error(error));
       },
       error: (error) => {
         console.error('Erro ao criar produto:', error);
+        this.matSnackBar.open('Erro ao criar produto!', 'OK',)
       }
     });
   }
