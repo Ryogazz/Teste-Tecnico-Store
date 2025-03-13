@@ -8,7 +8,13 @@
     <p><strong>Descrição: </strong>{{ produtoDescricao() }}</p>
     <p><strong>Preço: </strong> {{ produtoPreco() | currency:'BRL':'symbol' :'1.2-2' }}</p>
     <p><strong>Data de Criação:</strong> {{ produtoDataCriacao() |  date:'dd/MM/yyyy' }}</p>
-    <p *ngIf="produtoDestaque()" class="destaque">Produto em Destaque</p>
+    <!-- <p *ngIf="produtoDestaque()" class="destaque"><mat-icon color="accent">favorite</mat-icon> <span>Produto em Destaque</span></p> -->
+    <p *ngIf="produtoDestaque()" class="destaque">
+      <mat-icon color="accent">favorite</mat-icon> 
+      <span>Produto em Destaque</span>
+    </p>
+    
+    
   </mat-card-content>
 
   <mat-card-actions>
