@@ -23,8 +23,13 @@ export class CardComponent {
   produtoDestaque = computed(() => this.produto().destaque)
   
   @Output() edit = new EventEmitter();
+  @Output() delete = new EventEmitter();
 
   onEditProduct() {
     this.edit.emit();
+  }
+
+  onDeleteProduct() {
+    this.delete.emit();
   }
 }
