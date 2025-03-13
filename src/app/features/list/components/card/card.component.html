@@ -1,11 +1,11 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ produtoNome() }}</mat-card-title>
-    <mat-card-subtitle>{{ produtoCategoria() }}</mat-card-subtitle>
+    <mat-card-title><strong>Nome do Produto: </strong> {{ produtoNome() }}</mat-card-title>
   </mat-card-header>
-
+  
   <mat-card-content>
-    <p>{{ produtoDescricao() }}</p>
+    <p><strong>Categoria:</strong>{{ produtoCategoria() }}</p>
+    <p><strong>Descrição: </strong>{{ produtoDescricao() }}</p>
     <p><strong>Preço: </strong> {{ produtoPreco() | currency:'BRL':'symbol' :'1.2-2' }}</p>
     <p><strong>Data de Criação:</strong> {{ produtoDataCriacao() |  date:'dd/MM/yyyy' }}</p>
     <p *ngIf="produtoDestaque()" class="destaque">Produto em Destaque</p>
