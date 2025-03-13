@@ -1,31 +1,49 @@
 {
   "produtos": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Produto 1",
       "descricao": "Descrição do Produto 1",
-      "preco": 99.90,
+      "preco": 99.9,
       "categoria": "Categoria A",
       "destaque": true,
       "dataCriacao": "2025-03-12T00:00:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Produto 2",
       "descricao": "Descrição do Produto 2",
-      "preco": 49.90,
+      "preco": 49.9,
       "categoria": "Categoria B",
       "destaque": false,
       "dataCriacao": "2025-03-10T00:00:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Produto 3",
       "descricao": "Descrição do Produto 3",
-      "preco": 199.90,
+      "preco": 199.9,
       "categoria": "Categoria A",
       "destaque": true,
       "dataCriacao": "2025-03-11T00:00:00Z"
+    },
+    {
+      "id": "215d",
+      "nome": "eeeee",
+      "descricao": "errer",
+      "preco": 556,
+      "categoria": "rtrtr",
+      "destaque": false,
+      "dataCriacao": "2025-03-13T01:08:20.594Z"
+    },
+    {
+      "id": "f326",
+      "nome": "444",
+      "descricao": "5543",
+      "preco": 3434,
+      "categoria": "rrrrer",
+      "destaque": false,
+      "dataCriacao": "2025-03-13T01:12:39.980Z"
     }
   ]
 }

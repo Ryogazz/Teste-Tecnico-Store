@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
+import { ProdutosService } from '../../shared/services/produtos.service';
+import { PayloadProduct } from '../../shared/interfaces/payload-product.interface';
 
 @Component({
   selector: 'app-create',
@@ -15,9 +18,12 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     MatButtonModule],
   templateUrl: './create.component.html',
-  styleUrl: './create.component.scss'
+  styleUrl: './create.component.scss',
+  providers: [CurrencyPipe],
 })
 export class CreateComponent {
+  produtosService = inject(ProdutosService)
+
 
   form = new FormGroup({
     nome: new FormControl<string>('', {
@@ -34,7 +40,7 @@ export class CreateComponent {
         Validators.minLength(3)
       ]
     }),
-    preco: new FormControl<number>(0, {
+    preco: new FormControl<number | null>(null, {
       nonNullable: true,
       validators: [
         Validators.required,
@@ -57,8 +63,56 @@ export class CreateComponent {
   })
 
   onSubmit() {
-    console.log(this.form.value)
+    if (this.isFormInvalid()) {
+      console.error('Formulário inválido!');
+      return;
+    }
+  
+    const produtoData = this.prepareProductData();
+    if (!produtoData) {
+      console.error('Dados do produto inválidos!');
+      return;
+    }
+  
+    this.sendProductData(produtoData);
   }
-
-
+  
+  private isFormInvalid(): boolean {
+    return this.form.invalid;
+  }
+  
+  private prepareProductData(): PayloadProduct | null {
+    const formValue = this.form.value;
+  
+    const precoDecimal = this.convertPriceToDecimal(formValue.preco);
+    if (isNaN(precoDecimal)) {
+      console.error('Preço inválido!');
+      return null;
+    }
+  
+    return {
+      nome: formValue.nome ?? '',
+      descricao: formValue.descricao ?? '',
+      preco: precoDecimal,
+      categoria: formValue.categoria ?? '',
+      destaque: formValue.destaque ?? false,
+      dataCriacao: formValue.dataCriacao?.toISOString() ?? new Date().toISOString(),
+    };
+  }
+  
+  private convertPriceToDecimal(precoRawValue: number | null | undefined): number {
+    return parseFloat((precoRawValue ?? '').toString().replace('R$', '').replace(',', '.').trim());
+  }
+  
+  private sendProductData(produtoData: PayloadProduct) {
+    this.produtosService.post(produtoData).subscribe({
+      next: (response) => {
+        console.log('Produto criado com sucesso:', response);
+      },
+      error: (error) => {
+        console.error('Erro ao criar produto:', error);
+      }
+    });
+  }
+  
 }
