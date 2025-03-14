@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { ListComponent } from './features/list/list.component';
+import { ListComponent } from './pages/product-journey/list/list.component';
 import { ProdutosService } from './shared/services/produtos.service';
 import { inject } from '@angular/core';
 
@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'create-product',
-    loadComponent: () => import('./features/create/create.component').then(m => m.CreateComponent)
+    loadComponent: () => import('./pages/product-journey/create/create.component').then(m => m.CreateComponent)
   },
   {
     path: 'edit-product/:id',
@@ -20,7 +20,7 @@ export const routes: Routes = [
         return produtosService.getById(route.paramMap.get('id') as string)
       }
     },
-    loadComponent: () => import('./features/edit/edit.component').then(m => m.EditComponent)
+    loadComponent: () => import('./pages/product-journey/edit/edit.component').then(m => m.EditComponent)
   }
 
 ];
