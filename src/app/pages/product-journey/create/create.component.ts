@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ProdutosService } from '../../shared/services/produtos.service';
-import { PayloadProduct } from '../../shared/interfaces/payload-product.interface';
-import { Produto } from '../../shared/interfaces/produto.interface';
-import { FormComponent } from '../../shared/components/form/form.component';
+import { ProdutosService } from '../../../shared/services/produtos.service';
+import { PayloadProduct } from '../../../shared/interfaces/payload-product.interface';
+import { Produto } from '../../../shared/interfaces/produto.interface';
+import { FormComponent } from '../../../shared/components/form/form.component';
 
 @Component({
   selector: 'app-create',

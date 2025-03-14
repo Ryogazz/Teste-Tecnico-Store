@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { Produto } from '../../../../shared/interfaces/produto.interface';
+import { Produto } from '../../../../../shared/interfaces/produto.interface';
 
 @Component({
   selector: 'app-card',
@@ -15,6 +15,7 @@ import { Produto } from '../../../../shared/interfaces/produto.interface';
 export class CardComponent {
 
   produto = input.required<Produto>()
+  
 
   produtoNome = computed(() => this.produto().nome)
   produtoCategoria = computed(() => this.produto().categoria)

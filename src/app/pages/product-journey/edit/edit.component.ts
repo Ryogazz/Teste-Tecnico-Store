@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Produto } from '../../shared/interfaces/produto.interface';
-import { FormComponent } from '../../shared/components/form/form.component';
-import { ProdutosService } from '../../shared/services/produtos.service';
+import { Produto } from '../../../shared/interfaces/produto.interface';
+import { FormComponent } from '../../../shared/components/form/form.component';
+import { ProdutosService } from '../../../shared/services/produtos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
