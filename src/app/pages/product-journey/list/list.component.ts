@@ -7,13 +7,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { filter } from 'rxjs';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog-service.service';
 import { NoItemsComponent } from './components/no-items/no-items.component';
+import { SearchBarComponent } from '../../../shared/components/search-bar/search-bar.component';
 
 
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CardComponent, RouterLink, MatButtonModule,NoItemsComponent],
+  imports: [CardComponent, RouterLink, MatButtonModule,NoItemsComponent, SearchBarComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
