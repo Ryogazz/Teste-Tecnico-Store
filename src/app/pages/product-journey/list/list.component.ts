@@ -44,6 +44,7 @@ export class ListComponent {
     this.produtosService.delete(productId.toString()).subscribe(() => {
       this.produtosService.getAll().subscribe((produtos) => {
         this.produtos.set(produtos);
+        this.filteredProdutos.set(produtos);
       })
     });
   }
