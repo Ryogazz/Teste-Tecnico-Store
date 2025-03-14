@@ -4,16 +4,16 @@ import { Produto } from '../../../shared/interfaces/produto.interface';
 import { CardComponent } from './components/card/card.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { filter } from 'rxjs';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog-service.service';
+import { NoItemsComponent } from './components/no-items/no-items.component';
 
 
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CardComponent, RouterLink, MatButtonModule, ConfirmationDialogComponent],
+  imports: [CardComponent, RouterLink, MatButtonModule,NoItemsComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
