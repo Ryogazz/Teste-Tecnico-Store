@@ -29,4 +29,10 @@ export class ProdutosService {
   delete(id: string) {
     return this.htttpClient.delete(`/api/produtos/${id}`)
   }
+
+// search(term: string) {
+//   return this.htttpClient.get<Produto[]>(`/api/produtos?nome_like=${term}&categoria_like=${term}`);
+// }
+//esta aqui para indicar que a busca poderai ser feita no back porem o jason server não suporta isso
+  
 }

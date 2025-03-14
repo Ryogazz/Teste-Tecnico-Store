@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -10,4 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class SearchBarComponent {
 
+  @Output() searchTerm  = new EventEmitter<string>();
+
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchTerm .emit(value);
+  }
+  
 }

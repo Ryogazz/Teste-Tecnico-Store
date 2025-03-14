@@ -21,6 +21,7 @@ import { SearchBarComponent } from '../../../shared/components/search-bar/search
 export class ListComponent {
 
   produtos = signal<Produto[]>(inject(ActivatedRoute).snapshot.data['produtos']);
+  filteredProdutos = signal<Produto[]>(this.produtos());
 
   produtosService = inject(ProdutosService);
   router = inject(Router);
@@ -46,4 +47,30 @@ export class ListComponent {
       })
     });
   }
+
+  onSearch(term: string): void {
+    if (term) {
+      const filtered = this.produtos().filter(produto =>
+        produto.nome.toLowerCase().includes(term.toLowerCase()) ||
+        produto.categoria.toLowerCase().includes(term.toLowerCase())
+      );
+      this.filteredProdutos.set(filtered);
+    } else {
+      this.filteredProdutos.set(this.produtos());
+    }
+  }
+
+  // onSearch(term: string): void {
+  //   console.log('Termo de busca:', term); 
+  //   if (term) {
+  //     this.produtosService.search(term).subscribe((produtos) => {
+  //       console.log('Resultados da busca:', produtos); 
+  //       this.filteredProdutos.set(produtos);
+  //     });
+  //   } else {
+  //     this.filteredProdutos.set(this.produtos()); 
+  //   }
+  // }
+
+  //esta aqui para indicar como seria a busca no backend porem o json-server nao tem suporte a busca
 }
