@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProdutosService } from '../../../shared/services/produtos.service';
 import { Produto } from '../../../shared/interfaces/produto.interface';
 import { CardComponent } from './components/card/card.component';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { filter } from 'rxjs';
@@ -19,17 +19,11 @@ import { ConfirmationDialogService } from '../../../shared/services/confirmation
 })
 export class ListComponent {
 
-  produtos: Produto[] = [];
+  produtos = signal<Produto[]>(inject(ActivatedRoute).snapshot.data['produtos']);
 
   produtosService = inject(ProdutosService);
   router = inject(Router);
   confirmationDialogService = inject(ConfirmationDialogService);
-
-  ngOnInit(): void {
-    this.produtosService.getAll().subscribe(produtos => {
-      this.produtos = produtos
-    });
-  }
 
   onEditProduct(produto: Produto) {
     this.router.navigateByUrl(`/edit-product/${produto.id}`)
@@ -46,7 +40,9 @@ export class ListComponent {
 
   private deleteProduct(productId: number) {
     this.produtosService.delete(productId.toString()).subscribe(() => {
-      this.produtos = this.produtos.filter((p) => p.id !== productId);
+      this.produtosService.getAll().subscribe((produtos) => {
+        this.produtos.set(produtos);
+      })
     });
   }
 }
