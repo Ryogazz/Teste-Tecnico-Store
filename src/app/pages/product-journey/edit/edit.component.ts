@@ -4,11 +4,12 @@ import { Produto } from '../../../shared/interfaces/produto.interface';
 import { FormComponent } from '../../../shared/components/form/form.component';
 import { ProdutosService } from '../../../shared/services/produtos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BackToHomeComponent } from '../../../shared/components/back-to-home/back-to-home.component';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [FormComponent],
+  imports: [FormComponent, BackToHomeComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })

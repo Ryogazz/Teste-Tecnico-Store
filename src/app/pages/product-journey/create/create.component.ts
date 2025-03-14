@@ -5,12 +5,13 @@ import { ProdutosService } from '../../../shared/services/produtos.service';
 import { PayloadProduct } from '../../../shared/interfaces/payload-product.interface';
 import { Produto } from '../../../shared/interfaces/produto.interface';
 import { FormComponent } from '../../../shared/components/form/form.component';
+import { BackToHomeComponent } from '../../../shared/components/back-to-home/back-to-home.component';
 
 @Component({
   selector: 'app-create',
   standalone: true,
   imports: [
-    FormComponent
+    FormComponent, BackToHomeComponent
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
