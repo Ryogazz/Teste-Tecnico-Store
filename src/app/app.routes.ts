@@ -1,11 +1,15 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import {  Routes } from '@angular/router';
 import { ListComponent } from './pages/product-journey/list/list.component';
-import { ProdutosService } from './shared/services/produtos.service';
-import { inject } from '@angular/core';
+
+import { getProductos } from './shared/resolvers/get-products.resolver';
+import { getProduto } from './shared/resolvers/get-product.resolver';
 
 export const routes: Routes = [
   {
     path: '',
+    resolve: {
+      produtos: getProductos
+    },
     component: ListComponent
   },
   {
@@ -15,10 +19,7 @@ export const routes: Routes = [
   {
     path: 'edit-product/:id',
     resolve: {
-      produto: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        const produtosService = inject(ProdutosService)
-        return produtosService.getById(route.paramMap.get('id') as string)
-      }
+      produto: getProduto
     },
     loadComponent: () => import('./pages/product-journey/edit/edit.component').then(m => m.EditComponent)
   }
