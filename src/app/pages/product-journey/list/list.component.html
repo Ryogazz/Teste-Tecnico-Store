@@ -1,16 +1,19 @@
 <div class="action-container">
-<a mat-flat-button color="accent"  [routerLink]="['/create-product']">Cadastrar Produto</a>
+  <a mat-flat-button color="accent" [routerLink]="['/create-product']">Cadastrar Produto</a>
 </div>
 
 @for (produto of produtos(); track produto.id) {
+<div class="item-container">
+
   @defer (on immediate) {
-    <app-card [produto]="produto" (edit)="onEditProduct(produto)" (delete)="onDeleteProduct(produto)"></app-card>
-    
+  <app-card [produto]="produto" (edit)="onEditProduct(produto)" (delete)="onDeleteProduct(produto)">
+  </app-card>
   }
+</div>
 }
 
 @empty {
-  @defer (on immediate) {
-    <app-no-items></app-no-items>
-  }
+@defer (on immediate) {
+<app-no-items></app-no-items>
+}
 }
